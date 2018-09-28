@@ -157,9 +157,9 @@ Page({
     })
   },
   //复利期限年数
-  fixYearsInput: function (e) {
+  compoundYearsInput: function (e) {
     this.setData({
-      fixYears: e.detail.value
+      compoundYears: e.detail.value
     })
   },
   //定投存款金额
@@ -259,12 +259,12 @@ Page({
       saveMoney = parseFloat(saveMoney);
       compoundRate = parseFloat(compoundRate);
       compoundYears = parseFloat(compoundYears);
-      var interest = 0;
       var i;
+      //利滚利计算
       for (i = 1; i <= compoundYears; i++) {
-        interest += saveMoney * (compoundRate / 100.0);
+        saveMoney += saveMoney * (compoundRate / 100.0);
       }
-      var all=(saveMoney+interest).toFixed(2);
+      var all=(saveMoney).toFixed(2);
       // wx.showToast({
       //   title: '本息共'+all+'元',
       //   icon: 'success',
