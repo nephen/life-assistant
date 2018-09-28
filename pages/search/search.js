@@ -46,8 +46,11 @@ Page({
     ],
     cityIndex: 0,
     saveMoney:'',
-    rate:'',
-    years:''
+    compoundRate:'',
+    compoundYears:'',
+    targetMoney: '',
+    fixRate: '',
+    fixYears: ''
   },
 
   //事件处理函数
@@ -141,22 +144,40 @@ Page({
       city: e.detail.value
     })
   },
-  //存款金额
+  //复利存款金额
   saveMoneyInput: function (e) {
     this.setData({
       saveMoney: e.detail.value
     })
   },
-  //年利率
-  rateInput: function (e) {
+  //复利年利率
+  compoundRateInput: function (e) {
     this.setData({
-      rate: e.detail.value
+      compoundRate: e.detail.value
     })
   },
-  //期限年数
-  yearsInput: function (e) {
+  //复利期限年数
+  fixYearsInput: function (e) {
     this.setData({
-      years: e.detail.value
+      fixYears: e.detail.value
+    })
+  },
+  //定投存款金额
+  targetMoneyInput: function (e) {
+    this.setData({
+      targetMoney: e.detail.value
+    })
+  },
+  //定投年利率
+  fixRateInput: function (e) {
+    this.setData({
+      fixRate: e.detail.value
+    })
+  },
+  //定投期限年数
+  fixYearsInput: function (e) {
+    this.setData({
+      fixYears: e.detail.value
     })
   },
   //计算
@@ -233,15 +254,15 @@ Page({
       }  
     } if (this.data.currentTab == 1){
       var saveMoney = this.data.saveMoney;
-      var rate = this.data.rate
-      var years = this.data.years;
+      var compoundRate = this.data.compoundRate
+      var compoundYears = this.data.compoundYears;
       saveMoney = parseFloat(saveMoney);
-      rate = parseFloat(rate);
-      years = parseFloat(years);
+      compoundRate = parseFloat(compoundRate);
+      compoundYears = parseFloat(compoundYears);
       var interest = 0;
       var i;
-      for (i = 1; i <= years; i++) {
-        interest += saveMoney * (rate / 100.0);
+      for (i = 1; i <= compoundYears; i++) {
+        interest += saveMoney * (compoundRate / 100.0);
       }
       var all=(saveMoney+interest).toFixed(2);
       // wx.showToast({
@@ -256,6 +277,42 @@ Page({
         success: function (res) {
           if (res.confirm) {
             // console.log('用户点击确定')
+          }
+        }
+      })
+
+    } if (this.data.currentTab == 2) {
+      var targetMoney = this.data.targetMoney;
+      var fixRate = this.data.fixRate
+      var fixYears = this.data.fixYears;
+      targetMoney = parseFloat(targetMoney);
+      fixRate = parseFloat(fixRate);
+      fixYears = parseFloat(fixYears);
+      // var interest = 0;
+      // var i;
+      // for (i = 1; i <= fixYears; i++) {
+      //   interest += saveMoney * (fixRate / 100.0);
+      // }
+      // //年利率转换为月利率
+      // var loanMonthRate = loanRate/100/12;
+      // //贷款的月份数
+      // var loanMonths = -loanYears*12;
+      // var all = ((targetMoney*loanMonthRate)/(1-Math.pow(1+loanMonthRate,loanMonths))).toFixed(2);
+      //年利率转换为月利率
+      var fixMonthRate = fixRate / 100 / 12;
+      //支付的月份数
+      var fixMonths = fixYears * 12;
+      var fv = targetMoney;
+      var pv = 0;
+      var type = 1;
+      //参考https://cloud.tencent.com/developer/ask/177280
+      var all = ((-fv - pv*Math.pow(1+fixMonthRate, fixMonths))/(1+fixMonthRate*type)/((Math.pow(1+fixMonthRate, fixMonths)-1)/fixMonthRate)).toFixed(2);
+      wx.showModal({
+        title: '投入',
+        content: '每月需定投' + -all + '元',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
           }
         }
       })

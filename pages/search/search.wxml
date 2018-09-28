@@ -24,7 +24,8 @@
   </view> -->
   <view class="swiper-tab">
     <view class="swiper-tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">工资</view>
-    <view class="swiper-tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">理财</view>
+    <view class="swiper-tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">复利</view>
+    <view class="swiper-tab-item {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">定投</view>
   </view>
 
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 80}}px" bindchange="bindChange">
@@ -55,11 +56,28 @@
       </view>
       <view class="itemView">
         <label class="label-name">年利率(%)：</label>
-        <input class="input-search" name="rate" placeholder-class="phcolor" placeholder="请输入年利率" bindinput="rateInput" value="{{rate}}" />
+        <input class="input-search" name="compoundRate" placeholder-class="phcolor" placeholder="请输入年利率" bindinput="compoundRateInput" value="{{compoundRate}}" />
       </view>
       <view class="itemView">
         <label class="label-name">期限(年数)：</label>
-         <input class="input-search" name="years" placeholder-class="phcolor" placeholder="请输入期限" bindinput="yearsInput"  value="{{years}}"/> 
+         <input class="input-search" name="compoundYears" placeholder-class="phcolor" placeholder="请输入期限" bindinput="compoundYearsInput"  value="{{compoundYears}}"/> 
+      </view>
+      <view>
+        <button class="btn-new" hover-class="btn-new-hover" bindtap="calculateBtn">计算</button>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="itemView">
+        <label class="label-name">目标金额(元)：</label>
+        <input class="input-search" name="targetMoney" placeholder-class="phcolor" placeholder="请输入您的存款金额" bindinput="targetMoneyInput" value="{{targetMoney}}" />
+      </view>
+      <view class="itemView">
+        <label class="label-name">年利率(%)：</label>
+        <input class="input-search" name="fixRate" placeholder-class="phcolor" placeholder="请输入年利率" bindinput="fixRateInput" value="{{fixRate}}" />
+      </view>
+      <view class="itemView">
+        <label class="label-name">期限(年数)：</label>
+         <input class="input-search" name="fixYears" placeholder-class="phcolor" placeholder="请输入期限" bindinput="fixYearsInput"  value="{{fixYears}}"/> 
       </view>
       <view>
         <button class="btn-new" hover-class="btn-new-hover" bindtap="calculateBtn">计算</button>
