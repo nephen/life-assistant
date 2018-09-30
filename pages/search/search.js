@@ -53,7 +53,10 @@ Page({
     fixYears: '',
     mortgageMoney: '',
     mortgageRate: '',
-    mortgageYears: ''
+    mortgageYears: '',
+    monthInvestMoney: '',
+    monthInvestRate: '',
+    monthInvestYears: ''
   },
 
   //事件处理函数
@@ -199,6 +202,24 @@ Page({
   mortgageYearsInput: function (e) {
     this.setData({
       mortgageYears: e.detail.value
+    })
+  },
+  //每月定投金额
+  monthInvestMoneyInput: function (e) {
+    this.setData({
+      monthInvestMoney: e.detail.value
+    })
+  },
+  //定投年化率
+  monthInvestRateInput: function (e) {
+    this.setData({
+      monthInvestRate: e.detail.value
+    })
+  },
+  //定投期限年数
+  monthInvestYearsInput: function (e) {
+    this.setData({
+      monthInvestYears: e.detail.value
     })
   },
   //计算
@@ -348,6 +369,30 @@ Page({
       wx.showModal({
         title: '还款',
         content: '每月需等额还款' + all + '元',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      })
+
+    } if (this.data.currentTab == 4) {
+      var monthInvestMoney = this.data.monthInvestMoney;
+      var monthInvestRate = this.data.monthInvestRate
+      var monthInvestYears = this.data.monthInvestYears;
+      monthInvestMoney = parseFloat(monthInvestMoney);
+      monthInvestRate = parseFloat(monthInvestRate);
+      monthInvestYears = parseFloat(monthInvestYears);
+      //年利率转换为月利率
+      var monthInvestMonthRate = monthInvestRate / 100 / 12;
+      //定投的月份数
+      var monthInvestMonths = monthInvestYears * 12;
+      var typee = 1;
+      var pv = 0;
+      var fv_value = (((1 - Math.pow(monthInvestMonthRate + 1, monthInvestMonths)) * (typee ? monthInvestMonthRate + 1 : 1) * monthInvestMoney) / monthInvestMonthRate - pv * Math.pow(monthInvestMonthRate + 1, monthInvestMonths)).toFixed(2);
+      wx.showModal({
+        title: '结余',
+        content: '本息一共累计' + -fv_value + '元',
         success: function (res) {
           if (res.confirm) {
             console.log('用户点击确定')
