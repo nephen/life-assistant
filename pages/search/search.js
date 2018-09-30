@@ -50,7 +50,10 @@ Page({
     compoundYears:'',
     targetMoney: '',
     fixRate: '',
-    fixYears: ''
+    fixYears: '',
+    mortgageMoney: '',
+    mortgageRate: '',
+    mortgageYears: ''
   },
 
   //事件处理函数
@@ -180,6 +183,24 @@ Page({
       fixYears: e.detail.value
     })
   },
+  //房贷金额
+  mortgageMoneyInput: function (e) {
+    this.setData({
+      mortgageMoney: e.detail.value
+    })
+  },
+  //房贷年利率
+  mortgageRateInput: function (e) {
+    this.setData({
+      mortgageRate: e.detail.value
+    })
+  },
+  //房贷期限年数
+  mortgageYearsInput: function (e) {
+    this.setData({
+      mortgageYears: e.detail.value
+    })
+  },
   //计算
   calculateBtn:function(e){
     if (this.data.currentTab==0){
@@ -288,11 +309,6 @@ Page({
       targetMoney = parseFloat(targetMoney);
       fixRate = parseFloat(fixRate);
       fixYears = parseFloat(fixYears);
-      // var interest = 0;
-      // var i;
-      // for (i = 1; i <= fixYears; i++) {
-      //   interest += saveMoney * (fixRate / 100.0);
-      // }
       // //年利率转换为月利率
       // var loanMonthRate = loanRate/100/12;
       // //贷款的月份数
@@ -310,6 +326,28 @@ Page({
       wx.showModal({
         title: '投入',
         content: '每月需定投' + -all + '元',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      })
+
+    } if (this.data.currentTab == 3) {
+      var mortgageMoney = this.data.mortgageMoney;
+      var mortgageRate = this.data.mortgageRate
+      var mortgageYears = this.data.mortgageYears;
+      mortgageMoney = parseFloat(mortgageMoney);
+      mortgageRate = parseFloat(mortgageRate);
+      mortgageYears = parseFloat(mortgageYears);
+      //年利率转换为月利率
+      var  mortgageMonthRate = mortgageRate/100/12;
+      //贷款的月份数
+      var mortgageMonths = - mortgageYears*12;
+      var all = ((mortgageMoney * mortgageMonthRate) / (1 - Math.pow(1 + mortgageMonthRate, mortgageMonths))).toFixed(2);
+      wx.showModal({
+        title: '还款',
+        content: '每月需等额还款' + all + '元',
         success: function (res) {
           if (res.confirm) {
             console.log('用户点击确定')
