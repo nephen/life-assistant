@@ -137,6 +137,16 @@ image {
   /*border-bottom: 1px solid #f1f1f1;*/
 }
 
+.article_display {
+  /* display: flex; */
+  color: #717777;
+  font-size: 50rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-weight: bold;
+  /*border-bottom: 1px solid #f1f1f1;*/
+}
+
 .views_box {
   display: flex;
   height: 30rpx;

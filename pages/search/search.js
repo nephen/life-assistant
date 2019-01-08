@@ -56,7 +56,8 @@ Page({
     mortgageYears: '',
     monthInvestMoney: '',
     monthInvestRate: '',
-    monthInvestYears: ''
+    monthInvestYears: '',
+    sceneType: ''
   },
 
   //事件处理函数
@@ -86,7 +87,7 @@ Page({
     search(this)
   },
 
-  onLoad: function () {
+  onLoad: function (query) {
     var that = this
 
     //调用应用实例的方法获取全局数据
@@ -107,6 +108,12 @@ Page({
         });
       }
     });
+    // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
+    const scene = decodeURIComponent(query.scene)
+    this.setData({
+      sceneType: scene
+    })
+    console.log(scene)
   },
 
   onShow: function () {

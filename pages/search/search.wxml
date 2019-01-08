@@ -120,7 +120,8 @@
       </view>
     </swiper-item>
   </swiper>
-  <view class="WxComment">
-    <WxComment tipOne="Markdown " tipTwo="will be supported, Powered by yicm." submitBtnText="回复" articleID="{{article_id}}" contentLen='1'></WxComment>
-  </view>
+<view class="WxComment">
+  <WxComment tipOne="WxComment " tipTwo="Powered by https://github.com/yicm" submitBtnText="回复" articleID="计算器优化意见" contentLen='1' theme="light"></WxComment>
+  <!-- "{{sceneType}}"  -->
+</view>
 </view>

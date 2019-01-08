@@ -35,8 +35,30 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "场景编译1",
+					"pathName": "pages/search/search",
+					"query": "scene=我们都是中国人",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "场景编译2",
+					"pathName": "pages/search/search",
+					"query": "scene=基金定投",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "场景编译3",
+					"pathName": "pages/search/search",
+					"query": "scene=计算器优化意见",
+					"scene": "1011"
+				}
+			]
 		}
 	}
 }

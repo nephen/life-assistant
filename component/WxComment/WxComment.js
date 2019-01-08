@@ -7,8 +7,8 @@ const AV = require('../../libs/leancloud/av-weapp-min.js');
 var Common = require('../../libs/scripts/common.js');
 // LeanCloud 应用的 ID 和 Key
 AV.init({
-  appId: 'wx30117317a0402942',
-  appKey: '388ffb636cf1ef12c607c26d3056509e',
+  appId: 'gFQhzLeyVb1xPHJj6sx7wQQh-gzGzoHsz',
+  appKey: '1IvxtXYSwUVutAGwcvVdGCaJ',
 });
 
 Component({
